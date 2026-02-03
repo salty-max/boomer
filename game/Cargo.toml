@@ -8,3 +8,5 @@ renderer = { path = "../renderer" } # This links your library
 pixels = "0.13"                      # Hardware-accelerated pixel buffer
 winit = "0.29"                       # Cross-platform window handling
 wasm-bindgen = "0.2"                 # Essential for the Web version
+log = "0.4"
+env_logger = "0.11"

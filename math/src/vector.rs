@@ -1,3 +1,4 @@
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Vector2 {
     pub x: f32,
     pub y: f32,
@@ -19,6 +20,11 @@ impl Vector2 {
         }
     }
 
+    pub fn add_mut(&mut self, other: &Vector2) {
+        self.x += other.x;
+        self.y += other.y;
+    }
+
     pub fn length(&self) -> f32 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
     }
@@ -28,6 +34,11 @@ impl Vector2 {
             x: self.x * factor,
             y: self.y * factor,
         }
+    }
+
+    pub fn scale_mut(&mut self, factor: f32) {
+        self.x *= factor;
+        self.y += factor;
     }
 
     pub fn normalize(&self) -> Vector2 {
@@ -46,8 +57,20 @@ impl Vector2 {
         self.x * other.x + self.y * other.y
     }
 
-    pub fn rotate(&self, _angle: f32) -> Vector2 {
-        unimplemented!()
+    pub fn rotate(&self, angle: f32) -> Vector2 {
+        Vector2 {
+            x: self.x * angle.cos() - self.y * angle.sin(),
+            y: self.x * angle.sin() + self.y * angle.cos(),
+        }
+    }
+
+    pub fn rotate_mut(&mut self, angle: f32) {
+        let old_x = self.x;
+        let cos_a = angle.cos();
+        let sin_a = angle.sin();
+
+        self.x = old_x * cos_a - self.y * sin_a;
+        self.y = old_x * sin_a + self.y * cos_a;
     }
 }
 
